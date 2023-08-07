@@ -2,18 +2,32 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const movieSchema = new Schema({
-    title: String,
-    released: Number,
-    runtime: Number,
-    genre: Array,
-    language: String,
-    director: String,
-    writer: String,
-    plot: String,
-    awards: String,
-    poster: String
+    Title: String,
+    Year: String,
+    Rated: String,
+    Released: String,
+    Runtime: String,
+    Genre: Array,
+    Director: String,
+    Writer: String,
+    Actors: String,
+    Plot: String,
+    Language: String,
+    Country: String,
+    Awards: String,
+    Poster: String,
+    Ratings: Array,
+    Metascore: String,
+    imdbRating: String,
+    imdbVotes: String,
+    imdbID: String,
+    Type: String,
+    DVD: String,
+    BoxOffice: String,
+    Production: String,
+    Website: String
 })
 
 const Movie = model('Movie', movieSchema);
 
-modul.export = Movie;
+module.exports = Movie;
