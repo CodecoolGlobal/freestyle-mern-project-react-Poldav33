@@ -1,5 +1,6 @@
 import './App.css';
 import Movie from './components/Movie';
+import Button from './components/Button';
 import { useState, useEffect } from 'react'
 import MovieDetails from './components/MovieDetails';
 
@@ -38,6 +39,13 @@ function App() {
   return (
     <div className="App">
       <div className="allMovies">
+        {page === "homePage" && 
+          <>
+            <Button buttontext={"Home"} setState={setPage} newState={"homePage"}/>
+            <Button buttontext={"Scheduled movies"} setState={setPage} newState={"schedule"}/>
+            <Button buttontext={"Schedule new movie"} setState={setPage} newState={"newMovie"}/>
+          </>
+        }
         {page === "homePage" && movies.map(movie =>
         <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} />
           )}
