@@ -15,5 +15,40 @@ app.get('/api/movies', async (req ,res) => {
     }
 })
 
+app.post('/api/movie/add', (req, res) => {
+    console.log(req.body);
+    const { 
+        Title, Comment, Rated,
+        Released, Runtime, Genre,
+        Director, Writer, Actors,
+        Actors, Plot, Language,
+        Country, Awards, Poster,
+        ImdbRating, ImdbVotes,
+        Schedule
+    } = req.body;
+    const movie = new Movie({
+        Title,
+        Comment,
+        Rated,
+        Released,
+        Runtime,
+        Genre,
+        Director,
+        Writer,
+        Actors,
+        Plot,
+        Language,
+        Country,
+        Awards,
+        Poster,
+        ImdbRating,
+        ImdbVotes,
+        Schedule
+    })
+    movie.save()
+    .then(movie => res.json(movie))
+    .catch(err => res.status(400).json( {success: false }))
+})
+
 
 app.listen(8080, () => console.log('Server started on port 8080'));

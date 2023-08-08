@@ -17,15 +17,9 @@ const movieSchema = new Schema({
     Awards: String,
     Poster: String,
     Ratings: Array,
-    Metascore: String,
     imdbRating: String,
     imdbVotes: String,
-    imdbID: String,
-    Type: String,
-    DVD: String,
-    BoxOffice: String,
-    Production: String,
-    Website: String
+    Schedule: Array
 })
 
 const Movie = model('Movie', movieSchema);
