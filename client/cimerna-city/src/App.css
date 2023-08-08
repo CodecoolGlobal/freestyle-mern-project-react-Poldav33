@@ -18,6 +18,7 @@
   color: #61dafb;
 }
 
+/* Style homepage */
 .allMovies{
   display: flex;
   flex-direction: column;
@@ -83,4 +84,39 @@
 
 .shortplot:hover{
   cursor: default;
+}
+
+/* Style Selected Movie page */
+.trailer{
+  height: 25rem;
+}
+
+.movie-collection-card{
+  display: flex;
+  flex-direction: row;
+}
+
+.movie-detail-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30rem;
+}
+
+.movie-poster-onselect{
+  height: 26rem;
+}
+
+.movie-genres, 
+.movie-director, 
+.movie-date-container,
+.movie-writer,
+.movie-actors,
+.movie-language,
+.movie-rated,
+.movie-imdbrating{
+  display: flex;
+  flex-direction: row;
+  width: 25rem;
+  justify-content: space-between;
 }
