@@ -31,6 +31,14 @@ function App() {
     console.log(jsonData);
   }
 
+  const fetchScheduleMovie = async (movie) => {
+    console.log(movie);
+    const data = await fetch(`https://www.omdbapi.com/?apikey=fc05aea1&t=${movie.title}`);
+    const jsonData = await data.json();
+    setNewMovie(jsonData);
+    console.log(jsonData);
+    setPage("findMovie");
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -43,9 +51,10 @@ function App() {
       seats: data.get("movie-seats"),
       tickets: data.get("movie-seats")
     }
-    console.log(Movie);
-
+    
+    fetchScheduleMovie(Movie);
   }
+
  
 
 
@@ -68,7 +77,13 @@ function App() {
         <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} />
           )}
         {page === "detailMovie" && <MovieDetails movie={selectedMovie}/>}
-        {page === "newMovie" && <ScheduleMovie handleSubmit={handleSubmit} setState={setNewMovie}/>}
+        {(page === "newMovie" || page === "findMovie")&& <ScheduleMovie handleSubmit={handleSubmit} setState={setNewMovie}/>}
+        {page === "findMovie" && 
+        <>
+          <Movie movie={newMovie}/>
+          <Button buttontext={"Schedule Movie"} setState={setPage} newState={"homePage"}/>
+        </>
+        }
       </div>
     </div>
   );
