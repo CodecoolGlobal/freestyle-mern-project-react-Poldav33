@@ -1,6 +1,8 @@
 function ScheduleMovie() {
     return (
-        
+        <div>
+            
+        </div>
     );
 }
 
