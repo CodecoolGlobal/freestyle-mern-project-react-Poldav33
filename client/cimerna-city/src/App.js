@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="App">
       <div className="allMovies">
-        {page === "homePage" && 
+        {(page === "homePage" || page === "detailMovie" ) && 
           <>
             <Button buttontext={"Home"} setState={setPage} newState={"homePage"}/>
             <Button buttontext={"Scheduled movies"} setState={setPage} newState={"schedule"}/>
