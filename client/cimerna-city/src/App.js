@@ -57,8 +57,9 @@ function App() {
   const saveSchedule = () => {
     const data = {
       ...newMovie,
-      schedule: {...scheduleMovie}
+      Schedule: {...scheduleMovie}
     };
+    console.log(data);
     fetch('/api/movie/add', {
       method: 'POST',
       headers: { 'Content-type': 'application/json'},
