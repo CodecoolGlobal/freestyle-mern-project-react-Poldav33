@@ -1,14 +1,16 @@
 import './App.css';
+import { useState, useEffect } from 'react'
 import Movie from './components/Movie';
 import Button from './components/Button';
-import { useState, useEffect } from 'react'
 import MovieDetails from './components/MovieDetails';
+import ScheduleMovie from './components/ScheduleMovie';
 
 function App() {
 
   const [movies, setMovies] = useState([])
   const [selectedMovie, setSelectedMovie] = useState();
-  const [page, setPage] = useState("")
+  const [page, setPage] = useState("");
+  const [newMovie, setNewMovie] = useState({});
 
   
   useEffect(() => {
@@ -30,10 +32,26 @@ function App() {
   }
 
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // const data = { newMovieTitle, newMovieDate, newMovieSeats }
+    const data = new FormData(event.target);
+    const Movie = {
+      title: data.get("movie-title"),
+      date: data.get("movie-date"),
+      start: data.get("movie-start"),
+      seats: data.get("movie-seats"),
+      tickets: data.get("movie-seats")
+    }
+    console.log(Movie);
+
+  }
+ 
 
 
 
 
+//  {page === "newMovie" && <ScheduleMovie handleSubmit={handleSubmit}/>}
 
 
   return (
@@ -50,7 +68,7 @@ function App() {
         <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} />
           )}
         {page === "detailMovie" && <MovieDetails movie={selectedMovie}/>}
-
+        {page === "newMovie" && <ScheduleMovie handleSubmit={handleSubmit} setState={setNewMovie}/>}
       </div>
     </div>
   );
