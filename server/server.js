@@ -21,30 +21,20 @@ app.post('/api/movie/add', (req, res) => {
         Title, Comment, Rated,
         Released, Runtime, Genre,
         Director, Writer, Actors,
-        Actors, Plot, Language,
+        Plot, Language,
         Country, Awards, Poster,
         ImdbRating, ImdbVotes,
         Schedule
     } = req.body;
     const movie = new Movie({
-        Title,
-        Comment,
-        Rated,
-        Released,
-        Runtime,
-        Genre,
-        Director,
-        Writer,
-        Actors,
-        Plot,
-        Language,
-        Country,
-        Awards,
-        Poster,
-        ImdbRating,
-        ImdbVotes,
-        Schedule
+        Title, Comment, Rated,
+        Released, Runtime, Genre,
+        Director, Writer, Actors,
+        Plot, Language, Country,
+        Awards, Poster, ImdbRating,
+        ImdbVotes, Schedule
     })
+    console.log(movie);
     movie.save()
     .then(movie => res.json(movie))
     .catch(err => res.status(400).json( {success: false }))

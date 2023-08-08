@@ -11,6 +11,7 @@ function App() {
   const [selectedMovie, setSelectedMovie] = useState();
   const [page, setPage] = useState("");
   const [newMovie, setNewMovie] = useState({});
+  const [scheduleMovie, setScheduleMovie] = useState({});
 
   
   useEffect(() => {
@@ -28,15 +29,12 @@ function App() {
     const jsonData = await data.json();
     setSelectedMovie(jsonData);
     setPage("detailMovie");
-    console.log(jsonData);
   }
 
   const fetchScheduleMovie = async (movie) => {
-    console.log(movie);
     const data = await fetch(`https://www.omdbapi.com/?apikey=fc05aea1&t=${movie.title}`);
     const jsonData = await data.json();
     setNewMovie(jsonData);
-    console.log(jsonData);
     setPage("findMovie");
   }
 
@@ -51,8 +49,28 @@ function App() {
       seats: data.get("movie-seats"),
       tickets: data.get("movie-seats")
     }
-    
+    setScheduleMovie(Movie);
     fetchScheduleMovie(Movie);
+  }
+
+
+  const saveSchedule = () => {
+    const data = {
+      ...newMovie,
+      schedule: {...scheduleMovie}
+    };
+    fetch('/api/movie/add', {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json'},
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    });
   }
 
  
@@ -81,7 +99,11 @@ function App() {
         {page === "findMovie" && 
         <>
           <Movie movie={newMovie}/>
-          <Button buttontext={"Schedule Movie"} setState={setPage} newState={"homePage"}/>
+          <button onClick={() => {
+            setPage("homePage");
+            saveSchedule();
+          }}
+          >Schedule Movie</button>
         </>
         }
       </div>
