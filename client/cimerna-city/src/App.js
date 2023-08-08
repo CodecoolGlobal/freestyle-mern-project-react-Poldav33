@@ -37,10 +37,13 @@ function App() {
 
   return (
     <div className="App">
-      {page === "homePage" && movies.map(movie =>
-      <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} />
-        )}
-      {page === "detailMovie" && <MovieDetails movie={selectedMovie}/>}
+      <div className="allMovies">
+        {page === "homePage" && movies.map(movie =>
+        <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} />
+          )}
+        {page === "detailMovie" && <MovieDetails movie={selectedMovie}/>}
+
+      </div>
     </div>
   );
 }
