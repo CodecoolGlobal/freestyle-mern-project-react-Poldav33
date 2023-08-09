@@ -4,6 +4,7 @@ import Movie from './components/Movie';
 import Button from './components/Button';
 import MovieDetails from './components/MovieDetails';
 import ScheduleMovie from './components/ScheduleMovie';
+import EditMovie from './components/EditMovie';
 
 function App() {
 
@@ -23,6 +24,11 @@ function App() {
     }
     fetchData();
   }, [])
+
+  const selectMovieToEdit = (movie, changePageTo) => {
+    setSelectedMovie(movie)
+    setPage(changePageTo)
+  }
 
   const fetchSelectedMovie = async (movie, changePageTo) => {
     const data = await fetch(`https://www.omdbapi.com/?apikey=fc05aea1&t=${movie.Title}&y=${movie.Year}&plot=full`);
@@ -109,10 +115,11 @@ function App() {
         </>
         }
         {(page === "edit-movies") && movies.map(movie => 
-        <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} changePageTo={"edit-schedule"} />
+        <Movie movie={movie} key={movie['_id']} onClick={selectMovieToEdit} changePageTo={"edit-schedule"} />
         )
         }
-        {(page === "edit-schedule") && }
+        {(page === "edit-schedule") && 
+        <EditMovie movie={selectedMovie}/>}
       </div>
     </div>
   );
