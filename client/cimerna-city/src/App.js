@@ -9,20 +9,20 @@ function App() {
 
   const [movies, setMovies] = useState([])
   const [selectedMovie, setSelectedMovie] = useState();
-  const [page, setPage] = useState("");
+  const [page, setPage] = useState("homePage");
   const [newMovie, setNewMovie] = useState({});
   const [scheduleMovie, setScheduleMovie] = useState({});
 
   
   useEffect(() => {
-    const fetchData = async () => {
+      const fetchData = async () => {
       const data = await fetch('/api/movies');
       const jsonData = await data.json();
       setMovies(jsonData);
       setPage("homePage");
     }
-    fetchData();
-  }, [])
+    page === "homePage" && fetchData();
+  }, [page])
 
   const fetchSelectedMovie = async (movie) => {
     const data = await fetch(`https://www.omdbapi.com/?apikey=fc05aea1&t=${movie.Title}&y=${movie.Year}&plot=full`);
@@ -59,7 +59,6 @@ function App() {
       ...newMovie,
       Schedule: {...scheduleMovie}
     };
-    console.log(data);
     fetch('/api/movie/add', {
       method: 'POST',
       headers: { 'Content-type': 'application/json'},
@@ -72,6 +71,7 @@ function App() {
     .catch((error) => {
       console.log(error)
     });
+    
   }
 
  
