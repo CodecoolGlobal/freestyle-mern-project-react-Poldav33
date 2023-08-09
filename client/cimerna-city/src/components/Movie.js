@@ -1,4 +1,7 @@
+import Start from "./Start";
+
 const Movie = ({ movie, onClick }) => {
+  console.log(movie);
   return (
   <div key={movie["_id"]} className="movie-card">
     <img src={movie.Poster} alt="Poster" className="movie-poster"/>
@@ -11,6 +14,11 @@ const Movie = ({ movie, onClick }) => {
       </div>
       <div className="movie-language">Language: {movie.Language}</div>
       <div className="shortplot">{movie.Plot}</div>
+    </div>
+    <div className="Schedules">
+      {movie.Schedule && movie.Schedule.map((schedule) => {
+        return <Start schedule={schedule}/>
+      })}
     </div>
   </div>
   );
