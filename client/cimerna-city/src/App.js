@@ -24,11 +24,11 @@ function App() {
     fetchData();
   }, [])
 
-  const fetchSelectedMovie = async (movie) => {
+  const fetchSelectedMovie = async (movie, changePageTo) => {
     const data = await fetch(`https://www.omdbapi.com/?apikey=fc05aea1&t=${movie.Title}&y=${movie.Year}&plot=full`);
     const jsonData = await data.json();
     setSelectedMovie(jsonData);
-    setPage("detailMovie");
+    setPage(changePageTo);
   }
 
   const fetchScheduleMovie = async (movie) => {
@@ -90,10 +90,11 @@ function App() {
             <Button buttontext={"Home"} setState={setPage} newState={"homePage"}/>
             <Button buttontext={"Scheduled movies"} setState={setPage} newState={"schedule"}/>
             <Button buttontext={"Schedule new movie"} setState={setPage} newState={"newMovie"}/>
+            <Button buttontext={"Edit-schedule"} setState={setPage} newState={"edit-movies"}/>
           </>
         }
         {page === "homePage" && movies.map(movie =>
-        <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} />
+        <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} changePageTo={"detailMovie"}/>
           )}
         {page === "detailMovie" && <MovieDetails movie={selectedMovie}/>}
         {(page === "newMovie" || page === "findMovie")&& <ScheduleMovie handleSubmit={handleSubmit} setState={setNewMovie}/>}
@@ -107,6 +108,11 @@ function App() {
           >Schedule Movie</button>
         </>
         }
+        {(page === "edit-movies") && movies.map(movie => 
+        <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} changePageTo={"edit-schedule"} />
+        )
+        }
+        {(page === "edit-schedule") && }
       </div>
     </div>
   );
