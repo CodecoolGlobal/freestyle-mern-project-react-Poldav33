@@ -26,7 +26,6 @@ app.post('/api/movies/filter', async (req,res) => {
 } );
 
 app.post('/api/movie/add', (req, res) => {
-    
     const { 
         Title, Comment, Rated,
         Released, Runtime, Genre,
@@ -39,12 +38,11 @@ app.post('/api/movie/add', (req, res) => {
     // console.log(Movie.findOne({ Title : Title}) ? "True" : "False");
     Movie.exists({ Title : Title}).then(result => {
         if(result) {
-            Movie.updateOne(
+            return Movie.updateOne(
                 { Title: Title },
                 { $push: 
                     { Schedule: Schedule }
                 }).then(result => res.json(result))
-                .catch(err => res.status(400).json({ success: false}));
         } else {
             const movie = new Movie({
                 Title, Comment, Rated,
@@ -54,15 +52,12 @@ app.post('/api/movie/add', (req, res) => {
                 Awards, Poster, ImdbRating,
                 ImdbVotes, Schedule
             })
-            movie.save()
+            return movie.save()
             .then(movie => {
                 res.json(movie)
-            })
-            .catch(err => res.status(400).json( {success: false }))
-            
+            }) 
         }
-
-    })
+    }).catch(err => res.status(400).json( {success: false }))
 
 
 

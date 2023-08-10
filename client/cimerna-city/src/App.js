@@ -4,8 +4,10 @@ import Movie from './components/Movie';
 import Button from './components/Button';
 import MovieDetails from './components/MovieDetails';
 import ScheduleMovie from './components/ScheduleMovie';
+import EditMovie from './components/EditMovie';
 import { v4 as uuidv4 } from 'uuid';
 import Filter from './components/Filter';
+
 
 function App() {
 
@@ -27,11 +29,17 @@ function App() {
     page === "homePage" && fetchData();
   }, [page])
 
-  const fetchSelectedMovie = async (movie) => {
+  const selectMovieToEdit = (movie, changePageTo) => {
+    console.log(movie)
+    setSelectedMovie(movie)
+    setPage(changePageTo)
+  }
+
+  const fetchSelectedMovie = async (movie, changePageTo) => {
     const data = await fetch(`https://www.omdbapi.com/?apikey=fc05aea1&t=${movie.Title}&y=${movie.Year}&plot=full`);
     const jsonData = await data.json();
     setSelectedMovie(jsonData);
-    setPage("detailMovie");
+    setPage(changePageTo);
   }
 
   const fetchScheduleMovie = async (movie) => {
@@ -45,7 +53,7 @@ function App() {
     event.preventDefault();
     const data = new FormData(event.target);
     const Movie = {
-      _id: uuidv4(),
+      _id : uuidv4(),
       fullDate: new Date(`${data.get("movie-date")}, ${data.get("movie-start")}`),
       title: data.get("movie-title"),
       date: data.get("movie-date"),
@@ -118,11 +126,12 @@ function App() {
             <Button buttontext={"Home"} setState={setPage} newState={"homePage"}/>
             <Button buttontext={"Scheduled movies"} setState={setPage} newState={"schedule"}/>
             <Button buttontext={"Schedule new movie"} setState={setPage} newState={"newMovie"}/>
+            <Button buttontext={"Edit-schedule"} setState={setPage} newState={"edit-movies"}/>
           </>
         }
         {page === "homePage" && <Filter handleFilter={handleFilter}/>}
         {page === "homePage" && movies.map(movie =>
-        <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} />
+        <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} changePageTo={"detailMovie"}/>
           )}
         {page === "detailMovie" && <MovieDetails movie={selectedMovie}/>}
         {(page === "newMovie" || page === "findMovie")&& <ScheduleMovie handleSubmit={handleSubmit} setState={setNewMovie}/>}
@@ -136,6 +145,12 @@ function App() {
           >Schedule Movie</button>
         </>
         }
+        {(page === "edit-movies") && movies.map(movie => 
+        <Movie movie={movie} key={movie['_id']} onClick={selectMovieToEdit} changePageTo={"edit-schedule"} />
+        )
+        }
+        {(page === "edit-schedule") && 
+        <EditMovie movie={selectedMovie}/>}
       </div>
     </div>
   );
