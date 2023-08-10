@@ -16,18 +16,8 @@ function App() {
   const [page, setPage] = useState("homePage");
   const [newMovie, setNewMovie] = useState({});
   const [scheduleMovie, setScheduleMovie] = useState({});
-  const [filter, setFilter] = useState(new Date());
-
-  
- /*  useEffect(() => {
-      const fetchData = async () => {
-      const data = await fetch('/api/movies');
-      const jsonData = await data.json();
-      setMovies(jsonData);
-      setPage("homePage");
-    }
-    page === "homePage" && fetchData();
-  }, [page]) */
+  const today = new Date();
+  const [filter, setFilter] = useState(`${today.getFullYear()}-0${(today.getMonth() + 1)}-${today.getDate()}`);
 
   const selectMovieToEdit = (movie, changePageTo) => {
     console.log(movie)
