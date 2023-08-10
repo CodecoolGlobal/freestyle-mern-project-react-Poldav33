@@ -1,8 +1,23 @@
+import { useEffect, useState } from "react";
+
 function MovieDetails({ movie, date }) {
+    const [videoURL, setVideoURL] = useState("");
+    const defaultYtURL = "https://www.youtube.com/embed/";
+    useEffect(() => {
+        const getTrailerId = async () => {
+            const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyASebKYOo6Mg2D_e9J03U4qVVs4YHFxKng&type=video&q=${movie.Title}trailer`)
+            const searchData = await fetchData.json();
+            setVideoURL(defaultYtURL + searchData.items[0].id.videoId.toString())
+            console.log(videoURL)
+        }
+        getTrailerId();
+        
+    }, []);
+
     return (
         <>
         <div className="trailer">
-            <img src={movie.Poster} alt="Nincsenkep" className="trailer"/>
+            <iframe src={videoURL}/>
         </div>
         <div className="movie-collection-card">
             <div className="movie-detail-container">
