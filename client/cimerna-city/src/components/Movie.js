@@ -3,9 +3,9 @@ import Start from "./Start";
 const Movie = ({ movie, onClick }) => {
   return (
   <div key={movie["_id"]} className="movie-card">
-    <diy className="poster-frame">
+    <div className="poster-frame">
       <img src={movie.Poster} alt="Poster" className="movie-poster"/>
-    </diy>
+    </div>
     <div className="movie-details-container">
       <div className="movie-title" onClick={() => onClick(movie)}> {movie.Title} </div>
       <div className="movie-minor-details">
