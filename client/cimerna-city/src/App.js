@@ -7,6 +7,7 @@ import ScheduleMovie from './components/ScheduleMovie';
 import EditMovie from './components/EditMovie';
 import { v4 as uuidv4 } from 'uuid';
 import Filter from './components/Filter';
+import OrderTickets from './components/OrderTickets';
 
 
 function App() {
@@ -119,9 +120,13 @@ function App() {
         </div>
         {(page === "edit-movies" || page === "homePage" || page === "edit-movies") && <Filter handleFilter={handleFilter}/>}
         {page === "homePage" && movies.map(movie =>
-        <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} changePageTo={"detailMovie"}/>
+        <Movie movie={movie} key={movie['_id']} onClick={selectMovieToEdit} changePageTo={"detailMovie"}/>
           )}
-        {page === "detailMovie" && <MovieDetails movie={selectedMovie} date={filter}/>}
+        {page === "detailMovie" && 
+        <>
+          <MovieDetails movie={selectedMovie} date={filter}/>
+          <OrderTickets originalSchedules={selectedMovie.Schedule}/>
+        </>}
         {(page === "newMovie" || page === "findMovie")&& <ScheduleMovie handleSubmit={handleSubmit} setState={setNewMovie}/>}
         {page === "findMovie" && 
         <>
