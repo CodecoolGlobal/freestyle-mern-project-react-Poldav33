@@ -7,12 +7,14 @@ function EditSchedule({ schedule }) {
   // const save = () => {
 
   // }
+  // defaultValue={schedule.date} onChange={}
+  // defaultValue={schedule.start}
 
-  return <form>
+  return <form key={schedule.title}>
     <label htmlFor="movie-date"> Date: </label>
-    <input id="movie-date" name={"movie-date"} type="date" placeholder={schedule.date} />
+    <input id="movie-date" name={"movie-date"} type="date" />
     <label htmlFor="movie-start"> Start: </label>
-    <input id="movie-start" name={"movie-start"} type="time" placeholder={schedule.start} />
+    <input id="movie-start" name={"movie-start"} type="time" />
     <button type="submit">Save</button>
   </form>
 }
@@ -36,3 +38,6 @@ export default EditSchedule;
 //     tickets: "5"
 //   }]
 // }
+
+// placeholder={schedule.date}
+// placeholder={schedule.start} 

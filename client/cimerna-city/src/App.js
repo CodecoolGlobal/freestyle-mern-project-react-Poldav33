@@ -26,6 +26,7 @@ function App() {
   }, [])
 
   const selectMovieToEdit = (movie, changePageTo) => {
+    console.log(movie)
     setSelectedMovie(movie)
     setPage(changePageTo)
   }
