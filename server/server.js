@@ -15,6 +15,15 @@ app.get('/api/movies', async (req ,res) => {
     }
 })
 
+app.get('/api/movies/filter/,', async (req,res) => {
+    try {
+        const filteredMovies = await Movie.find({ Schedule : { date : req.body.date} });
+        res.send(filteredMovies);
+    } catch (error) {
+        console.log(error);
+    }
+} );
+
 app.post('/api/movie/add', (req, res) => {
     
     const { 
