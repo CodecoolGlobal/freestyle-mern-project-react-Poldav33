@@ -43,7 +43,6 @@ app.post('/api/movie/add', (req, res) => {
         ImdbRating, ImdbVotes,
         Schedule
     } = req.body;
-    // console.log(Movie.findOne({ Title : Title}) ? "True" : "False");
     Movie.exists({ Title : Title}).then(result => {
         if(result) {
             return Movie.updateOne(

@@ -19,7 +19,7 @@ function App() {
   const [filter, setFilter] = useState(new Date());
 
   
-  useEffect(() => {
+ /*  useEffect(() => {
       const fetchData = async () => {
       const data = await fetch('/api/movies');
       const jsonData = await data.json();
@@ -27,7 +27,7 @@ function App() {
       setPage("homePage");
     }
     page === "homePage" && fetchData();
-  }, [page])
+  }, [page]) */
 
   const selectMovieToEdit = (movie, changePageTo) => {
     console.log(movie)
@@ -73,7 +73,6 @@ function App() {
         body: JSON.stringify( {filter : filter})
       });
       const jsonData = await data.json();
-      console.log(jsonData);
       setMovies(jsonData);
     }
   fetchFilteredMovies();
