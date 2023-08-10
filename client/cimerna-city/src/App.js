@@ -5,6 +5,7 @@ import Button from './components/Button';
 import MovieDetails from './components/MovieDetails';
 import ScheduleMovie from './components/ScheduleMovie';
 import EditMovie from './components/EditMovie';
+import { v4 as uuidv4 } from 'uuid';
 
 
 function App() {
