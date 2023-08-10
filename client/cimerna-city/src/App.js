@@ -4,7 +4,8 @@ import Movie from './components/Movie';
 import Button from './components/Button';
 import MovieDetails from './components/MovieDetails';
 import ScheduleMovie from './components/ScheduleMovie';
-import { v4 as uuidv4 } from 'uuid';
+const { v4 : uuidv4} = require('uuid');
+
 
 function App() {
 
@@ -43,7 +44,7 @@ function App() {
     event.preventDefault();
     const data = new FormData(event.target);
     const Movie = {
-      _id: uuidv4(),
+      _id : uuidv4(),
       fullDate: new Date(`${data.get("movie-date")}, ${data.get("movie-start")}`),
       title: data.get("movie-title"),
       date: data.get("movie-date"),

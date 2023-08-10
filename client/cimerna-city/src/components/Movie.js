@@ -1,7 +1,6 @@
 import Start from "./Start";
 
 const Movie = ({ movie, onClick }) => {
-  console.log(movie);
   return (
   <div key={movie["_id"]} className="movie-card">
     <diy className="poster-frame">
