@@ -63,5 +63,12 @@ app.post('/api/movie/add', (req, res) => {
 
 })
 
+app.put('/api/movies/:id', (req, res) => {
+    Movie.findOneAndUpdate({ "Schedule._id": `${req.params.id}` }, 
+    {$set: { "Schedule": req.body.newData } })
+    .then(data => {console.log(data); return data})
+    .catch(error => console.error(error))
+})
+
 
 app.listen(8080, () => console.log('Server started on port 8080'));

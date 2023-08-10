@@ -1,18 +1,25 @@
-function EditSchedule({ schedule }) {
-  // const scheduleDatas = [
-  //   { date: schedule.date },
-  //   { start: schedule.start }
-  // ]
+function EditSchedule({ index, schedule, onSave }) {
 
-  // const save = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const data = new FormData(e.target)
+    const newScheduleData = {
+      _id: schedule["_id"],
+      fullDate: new Date (`${data.get("movie-date")}, ${data.get("movie-start")}`),
+      date: data.get("movie-date"),
+      start: data.get("movie-start"),
+    }
+    schedule.date = newScheduleData.date
+    schedule.start = newScheduleData.start
+    schedule.fullDate = newScheduleData.fullDate
+    onSave(schedule["_id"])
+  }
 
-  // }
-
-  return <form key={schedule.title}>
+  return <form id={index} onSubmit={handleSubmit}>
     <label htmlFor="movie-date"> Date: </label>
     <input id="movie-date" name={"movie-date"} type="date" defaultValue={schedule.date} />
     <label htmlFor="movie-start"> Start: </label>
-    <input id="movie-start" name={"movie-start"} type="time" defaultValuevalue={schedule.start}/>
+    <input id="movie-start" name={"movie-start"} type="time" defaultValue={schedule.start}/>
     <button type="submit">Save</button>
   </form>
 }
