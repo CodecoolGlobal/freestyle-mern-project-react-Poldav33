@@ -18,6 +18,7 @@ app.get('/api/movies', async (req ,res) => {
 const removeWrongDateSchedules = (movies, filter) => {
     movies.map(movie => {
         const filteredSchedules = movie.Schedule.filter(schedule => schedule.date === filter);
+        filteredSchedules.sort((a,b) => a.start.localeCompare(b.start));
         movie.Schedule = filteredSchedules;
     });
 

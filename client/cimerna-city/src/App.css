@@ -18,6 +18,43 @@
   color: #61dafb;
 }
 
+.header{
+  width: 100vw;
+  height: 5rem;
+  background-color: black;
+}
+
+.navbar{
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  width: 100vw;
+  height: 2.5rem;
+  background-color: orange;
+}
+
+.navbar > button{
+  height: 2rem;
+  width: 13rem;
+  background-color: orange;
+  border-width: 0 0.1rem 0 0.1rem;
+  border-left-color: black;
+  border-right-color: black;
+  margin: 0.3rem 0.5rem 0.1rem 0.3rem;
+  font-size: 1.2rem;
+}
+
+.navbar > button:hover {
+  color:white;
+  background-color: darkorange;
+  transition:background-color 1s ease 0s;
+}
+
+.navbar > button:disabled {
+  background-color: white;
+  color: black;
+}
+
 /* Style homepage */
 .allMovies{
   display: flex;
@@ -118,7 +155,12 @@
 
 /* Style Selected Movie page */
 .trailer{
-  height: 25rem;
+  height: 36rem;
+}
+
+.trailer-video {
+  height: 36rem;
+  width: 64rem;
 }
 
 .movie-collection-card{
