@@ -6,24 +6,25 @@ import MovieDetails from './components/MovieDetails';
 import ScheduleMovie from './components/ScheduleMovie';
 import EditMovie from './components/EditMovie';
 
+
 function App() {
 
   const [movies, setMovies] = useState([])
   const [selectedMovie, setSelectedMovie] = useState();
-  const [page, setPage] = useState("");
+  const [page, setPage] = useState("homePage");
   const [newMovie, setNewMovie] = useState({});
   const [scheduleMovie, setScheduleMovie] = useState({});
 
   
   useEffect(() => {
-    const fetchData = async () => {
+      const fetchData = async () => {
       const data = await fetch('/api/movies');
       const jsonData = await data.json();
       setMovies(jsonData);
       setPage("homePage");
     }
-    fetchData();
-  }, [])
+    page === "homePage" && fetchData();
+  }, [page])
 
   const selectMovieToEdit = (movie, changePageTo) => {
     console.log(movie)
@@ -47,9 +48,10 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // const data = { newMovieTitle, newMovieDate, newMovieSeats }
     const data = new FormData(event.target);
     const Movie = {
+      _id : uuidv4(),
+      fullDate: new Date(`${data.get("movie-date")}, ${data.get("movie-start")}`),
       title: data.get("movie-title"),
       date: data.get("movie-date"),
       start: data.get("movie-start"),
@@ -66,7 +68,6 @@ function App() {
       ...newMovie,
       Schedule: {...scheduleMovie}
     };
-    console.log(data);
     fetch('/api/movie/add', {
       method: 'POST',
       headers: { 'Content-type': 'application/json'},
@@ -79,6 +80,7 @@ function App() {
     .catch((error) => {
       console.log(error)
     });
+    
   }
 
  
