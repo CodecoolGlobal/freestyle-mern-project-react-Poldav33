@@ -1,4 +1,4 @@
-function ScheduleMovie({ handleSubmit, setState }) {
+function ScheduleMovie({ handleSubmit }) {
     
     return (
         <form onSubmit={handleSubmit}>

@@ -5,6 +5,7 @@ import Button from './components/Button';
 import MovieDetails from './components/MovieDetails';
 import ScheduleMovie from './components/ScheduleMovie';
 import { v4 as uuidv4 } from 'uuid';
+import Filter from './components/Filter';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
   const [page, setPage] = useState("homePage");
   const [newMovie, setNewMovie] = useState({});
   const [scheduleMovie, setScheduleMovie] = useState({});
+  const [filter, setFilter] = useState(true);
 
   
   useEffect(() => {
@@ -55,6 +57,14 @@ function App() {
     fetchScheduleMovie(Movie);
   }
 
+  const handleFilter = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const filterDate = data.get("filter-date");
+    setFilter(filterDate);
+  }
+
+
 
   const saveSchedule = () => {
     const data = {
@@ -76,6 +86,7 @@ function App() {
     
   }
 
+
  
 
 
@@ -87,13 +98,14 @@ function App() {
   return (
     <div className="App">
       <div className="allMovies">
-        {(page === "homePage" || page === "detailMovie" ) && 
+        {( page === "homePage"|| page === "detailMovie" ) && 
           <>
             <Button buttontext={"Home"} setState={setPage} newState={"homePage"}/>
             <Button buttontext={"Scheduled movies"} setState={setPage} newState={"schedule"}/>
             <Button buttontext={"Schedule new movie"} setState={setPage} newState={"newMovie"}/>
           </>
         }
+        {page === "homePage" && <Filter handleSubmit={handleFilter}/>}
         {page === "homePage" && movies.map(movie =>
         <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} />
           )}
