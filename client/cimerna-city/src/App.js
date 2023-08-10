@@ -118,7 +118,7 @@ function App() {
         {page === "homePage" && movies.map(movie =>
         <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} changePageTo={"detailMovie"}/>
           )}
-        {page === "detailMovie" && <MovieDetails movie={selectedMovie}/>}
+        {page === "detailMovie" && <MovieDetails movie={selectedMovie} date={filter}/>}
         {(page === "newMovie" || page === "findMovie")&& <ScheduleMovie handleSubmit={handleSubmit} setState={setNewMovie}/>}
         {page === "findMovie" && 
         <>

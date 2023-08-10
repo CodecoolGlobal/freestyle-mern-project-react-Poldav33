@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function MovieDetails({ movie }) {
+function MovieDetails({ movie, date }) {
     const [videoURL, setVideoURL] = useState("");
     const defaultYtURL = "https://www.youtube.com/embed/";
     useEffect(() => {
@@ -23,7 +23,7 @@ function MovieDetails({ movie }) {
             <div className="movie-detail-container">
                 <div className="movie-detail-title"> {movie.Title} </div>
                 <div className="movie-date-container">
-                    <div> {movie.Year} </div>
+                    <div> {date} </div>
                     <div> {movie.Runtime} </div>
                 </div>
                 <div className="movie-fullplot"> {movie.Plot} </div>
