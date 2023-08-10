@@ -1,14 +1,12 @@
 const mongoose = require('mongoose');
 let Movie = require('./model/Movie.js');
 const express = require('express');
-const { uuid } = require('uuidv4');
 const app = express();
 app.use(express.json());
 
 mongoose.connect("mongodb+srv://polgi:12345@databases-around-us.vkklhfb.mongodb.net/cimerna");
 
 app.get('/api/movies', async (req ,res) => {
-    console.log(uuid());
     try {
         const allMovies = await Movie.find({});
         res.send(allMovies);
