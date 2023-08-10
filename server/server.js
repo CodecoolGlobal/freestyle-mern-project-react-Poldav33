@@ -16,6 +16,7 @@ app.get('/api/movies', async (req ,res) => {
 })
 
 app.post('/api/movie/add', (req, res) => {
+    
     const { 
         Title, Comment, Rated,
         Released, Runtime, Genre,
@@ -44,9 +45,11 @@ app.post('/api/movie/add', (req, res) => {
                 ImdbVotes, Schedule
             })
             movie.save()
-            .then(movie => res.json(movie))
+            .then(movie => {
+                res.json(movie)
+            })
             .catch(err => res.status(400).json( {success: false }))
-            console.log("new")
+            
         }
 
     })
