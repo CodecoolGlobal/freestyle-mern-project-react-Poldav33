@@ -64,6 +64,10 @@ function App() {
     setFilter(filterDate);
   }
 
+  const filterMovies = () => {
+    
+  }
+
 
 
   const saveSchedule = () => {
