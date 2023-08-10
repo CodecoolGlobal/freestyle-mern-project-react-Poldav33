@@ -14,7 +14,7 @@ function App() {
   const [page, setPage] = useState("homePage");
   const [newMovie, setNewMovie] = useState({});
   const [scheduleMovie, setScheduleMovie] = useState({});
-  const [filter, setFilter] = useState(true);
+  const [filter, setFilter] = useState("");
 
   
   useEffect(() => {
@@ -57,6 +57,20 @@ function App() {
     fetchScheduleMovie(Movie);
   }
 
+  useEffect(() => {
+    const fetchFilteredMovies = async () => {
+      const data = await fetch(`/api/movies/filter`, {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json'},
+        body: JSON.stringify( {filter : filter})
+      });
+      const jsonData = await data.json();
+      console.log(jsonData);
+      setMovies(jsonData);
+    }
+  fetchFilteredMovies();
+  }, [filter])
+
   const handleFilter = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
@@ -64,9 +78,6 @@ function App() {
     setFilter(filterDate);
   }
 
-  const filterMovies = () => {
-    
-  }
 
 
 
@@ -81,9 +92,9 @@ function App() {
       body: JSON.stringify(data)
     })
     .then(response => response.json())
-    .then(response => {
-      console.log(response)
-    })
+    // .then(response => {
+    //   console.log(response)
+    // })
     .catch((error) => {
       console.log(error)
     });
@@ -109,7 +120,7 @@ function App() {
             <Button buttontext={"Schedule new movie"} setState={setPage} newState={"newMovie"}/>
           </>
         }
-        {page === "homePage" && <Filter handleSubmit={handleFilter}/>}
+        {page === "homePage" && <Filter handleFilter={handleFilter}/>}
         {page === "homePage" && movies.map(movie =>
         <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} />
           )}
