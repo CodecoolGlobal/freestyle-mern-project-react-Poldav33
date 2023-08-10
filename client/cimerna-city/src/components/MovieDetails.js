@@ -17,7 +17,7 @@ function MovieDetails({ movie }) {
     return (
         <>
         <div className="trailer">
-            <iframe src={videoURL}/>
+            <iframe className="trailer-video" src={videoURL}/>
         </div>
         <div className="movie-collection-card">
             <div className="movie-detail-container">
