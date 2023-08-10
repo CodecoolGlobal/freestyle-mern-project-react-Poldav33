@@ -6,6 +6,7 @@ import MovieDetails from './components/MovieDetails';
 import ScheduleMovie from './components/ScheduleMovie';
 import EditMovie from './components/EditMovie';
 import { v4 as uuidv4 } from 'uuid';
+import Filter from './components/Filter';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   const [page, setPage] = useState("homePage");
   const [newMovie, setNewMovie] = useState({});
   const [scheduleMovie, setScheduleMovie] = useState({});
+  const [filter, setFilter] = useState("");
 
   
   useEffect(() => {
@@ -63,6 +65,29 @@ function App() {
     fetchScheduleMovie(Movie);
   }
 
+  useEffect(() => {
+    const fetchFilteredMovies = async () => {
+      const data = await fetch(`/api/movies/filter`, {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json'},
+        body: JSON.stringify( {filter : filter})
+      });
+      const jsonData = await data.json();
+      console.log(jsonData);
+      setMovies(jsonData);
+    }
+  fetchFilteredMovies();
+  }, [filter])
+
+  const handleFilter = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const filterDate = data.get("filter-date");
+    setFilter(filterDate);
+  }
+
+
+
 
   const saveSchedule = () => {
     const data = {
@@ -75,14 +100,15 @@ function App() {
       body: JSON.stringify(data)
     })
     .then(response => response.json())
-    .then(response => {
-      console.log(response)
-    })
+    // .then(response => {
+    //   console.log(response)
+    // })
     .catch((error) => {
       console.log(error)
     });
     
   }
+
 
  
 
@@ -95,7 +121,7 @@ function App() {
   return (
     <div className="App">
       <div className="allMovies">
-        {(page === "homePage" || page === "detailMovie" ) && 
+        {( page === "homePage"|| page === "detailMovie" ) && 
           <>
             <Button buttontext={"Home"} setState={setPage} newState={"homePage"}/>
             <Button buttontext={"Scheduled movies"} setState={setPage} newState={"schedule"}/>
@@ -103,6 +129,7 @@ function App() {
             <Button buttontext={"Edit-schedule"} setState={setPage} newState={"edit-movies"}/>
           </>
         }
+        {page === "homePage" && <Filter handleFilter={handleFilter}/>}
         {page === "homePage" && movies.map(movie =>
         <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} changePageTo={"detailMovie"}/>
           )}
