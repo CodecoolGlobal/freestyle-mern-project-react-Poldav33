@@ -66,7 +66,7 @@ function App() {
       setMovies(jsonData);
     }
   fetchFilteredMovies();
-  }, [filter])
+  }, [filter, page])
 
   const handleFilter = (event) => {
     event.preventDefault();
@@ -88,10 +88,10 @@ function App() {
       headers: { 'Content-type': 'application/json'},
       body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    // .then(response => {
-    //   console.log(response)
-    // })
+    .then(response => {
+      setPage("homePage");
+      return response.json();
+      })
     .catch((error) => {
       console.log(error)
     });
@@ -110,15 +110,11 @@ function App() {
   return (
     <div className="App">
       <div className="allMovies">
-        {( page === "homePage"|| page === "detailMovie" ) && 
-          <>
-            <Button buttontext={"Home"} setState={setPage} newState={"homePage"}/>
-            <Button buttontext={"Scheduled movies"} setState={setPage} newState={"schedule"}/>
-            <Button buttontext={"Schedule new movie"} setState={setPage} newState={"newMovie"}/>
-            <Button buttontext={"Edit-schedule"} setState={setPage} newState={"edit-movies"}/>
-          </>
-        }
-        {page === "homePage" && <Filter handleFilter={handleFilter}/>}
+        <Button buttontext={"Home"} setState={setPage} newState={"homePage"}/>
+        <Button buttontext={"Scheduled movies"} setState={setPage} newState={"schedule"}/>
+        <Button buttontext={"Schedule new movie"} setState={setPage} newState={"newMovie"}/>
+        <Button buttontext={"Edit-schedule"} setState={setPage} newState={"edit-movies"}/>
+        {(page === "edit-movies" || page === "homePage" || page === "edit-movies") && <Filter handleFilter={handleFilter}/>}
         {page === "homePage" && movies.map(movie =>
         <Movie movie={movie} key={movie['_id']} onClick={fetchSelectedMovie} changePageTo={"detailMovie"}/>
           )}
@@ -128,7 +124,7 @@ function App() {
         <>
           <Movie movie={newMovie}/>
           <button onClick={() => {
-            setPage("homePage");
+            
             saveSchedule();
           }}
           >Schedule Movie</button>
