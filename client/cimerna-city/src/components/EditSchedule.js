@@ -7,14 +7,12 @@ function EditSchedule({ schedule }) {
   // const save = () => {
 
   // }
-  // defaultValue={schedule.date} onChange={}
-  // defaultValue={schedule.start}
 
   return <form key={schedule.title}>
     <label htmlFor="movie-date"> Date: </label>
-    <input id="movie-date" name={"movie-date"} type="date" />
+    <input id="movie-date" name={"movie-date"} type="date" defaultValue={schedule.date} />
     <label htmlFor="movie-start"> Start: </label>
-    <input id="movie-start" name={"movie-start"} type="time" />
+    <input id="movie-start" name={"movie-start"} type="time" defaultValuevalue={schedule.start}/>
     <button type="submit">Save</button>
   </form>
 }

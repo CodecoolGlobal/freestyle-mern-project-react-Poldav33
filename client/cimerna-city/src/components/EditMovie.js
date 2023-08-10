@@ -4,7 +4,7 @@ import EditSchedule from "./EditSchedule";
 function EditMovie ({ movie }) {
   console.log(movie)
   const movieCopy = Object.assign({}, movie)
-  movieCopy.Schedule.sort((a, b) => a.date - b.date)
+  movieCopy.Schedule.sort((a, b) => a.fullDate - b.fullDate)
   console.log(movieCopy)
   return  <>
       <MovieDetails movie={movie}/>
