@@ -16,7 +16,7 @@ function App() {
   const [page, setPage] = useState("homePage");
   const [newMovie, setNewMovie] = useState({});
   const [scheduleMovie, setScheduleMovie] = useState({});
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState(new Date());
 
   
   useEffect(() => {
