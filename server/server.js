@@ -15,10 +15,19 @@ app.get('/api/movies', async (req ,res) => {
     }
 })
 
+const removeWrongDateSchedules = (movies, filter) => {
+    movies.map(movie => {
+        console.log(movie.Schedule);
+        const filteredSchedules = movie.Schedule.filter(schedule => schedule.date === filter);
+        movie.Schedule = filteredSchedules;
+    });
+
+}   
+
 app.post('/api/movies/filter', async (req,res) => {
     try {
         const filteredMovies = await Movie.find({ "Schedule.date" : req.body.filter });
-        console.log(filteredMovies);
+        removeWrongDateSchedules(filteredMovies, req.body.filter);
         res.send(filteredMovies);
     } catch (error) {
         console.log(error);
@@ -66,7 +75,7 @@ app.post('/api/movie/add', (req, res) => {
 app.put('/api/movies/:id', (req, res) => {
     Movie.findOneAndUpdate({ "Schedule._id": `${req.params.id}` }, 
     {$set: { "Schedule": req.body.newData } })
-    .then(data => {console.log(data); return data})
+    .then(data =>  data)
     .catch(error => console.error(error))
 })
 
