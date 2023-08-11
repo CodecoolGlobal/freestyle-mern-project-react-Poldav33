@@ -26,13 +26,6 @@ function App() {
     setPage(changePageTo)
   }
 
-  const fetchSelectedMovie = async (movie, changePageTo) => {
-    const data = await fetch(`https://www.omdbapi.com/?apikey=fc05aea1&t=${movie.Title}&y=${movie.Year}&plot=full`);
-    const jsonData = await data.json();
-    setSelectedMovie(jsonData);
-    setPage(changePageTo);
-  }
-
   const fetchScheduleMovie = async (movie) => {
     const data = await fetch(`https://www.omdbapi.com/?apikey=fc05aea1&t=${movie.title}`);
     const jsonData = await data.json();
@@ -76,9 +69,6 @@ function App() {
     setFilter(filterDate);
   }
 
-
-
-
   const saveSchedule = () => {
     const data = {
       ...newMovie,
@@ -98,15 +88,6 @@ function App() {
     });
     
   }
-
-
- 
-
-
-
-
-//  {page === "newMovie" && <ScheduleMovie handleSubmit={handleSubmit}/>}
-
 
   return (
     <div className="App">
@@ -145,13 +126,14 @@ function App() {
         </>}
         
 
-        <div className='setter-container'>
+        <div className='allmovies-container'>
           {(page === "edit-movies") && movies.map(movie => 
           <Movie movie={movie} key={movie['_id']} onClick={selectMovieToEdit} changePageTo={"edit-schedule"} />
           )
           }
-          {(page === "edit-schedule") && 
-          <EditMovie movie={selectedMovie}/>}
+          {(page === "edit-schedule") && <div className='schedule-new-movie'>
+          <EditMovie movie={selectedMovie}/>
+          </div>}
         </div>
       </div>
     </div>
