@@ -26,7 +26,7 @@
 
 .navbar{
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
   width: 100vw;
   height: 2.5rem;
@@ -179,7 +179,7 @@
 .movie-details-container {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   margin-top: 2rem;
   grid-area: movie-details-container; 
   text-align: start;
