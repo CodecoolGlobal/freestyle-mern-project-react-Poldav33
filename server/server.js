@@ -76,7 +76,28 @@ app.put('/api/movies/:id', (req, res) => {
     {$set: { "Schedule": req.body.newData } })
     .then(data =>  data)
     .catch(error => console.error(error))
-})
+});
 
+app.patch("/api/schedule/:id", async (req, res, next) => {
+    try {
+        const movie = await Movie.findOne({ "Schedule._id": `${req.params.id}` });
+        for (const scheduleItem of movie.Schedule) {
+            if (scheduleItem._id === req.params.id) {
+                Object.entries(req.body).forEach(([key, value]) => {
+                    scheduleItem[key] = value;
+                });
+                break;
+            }
+        }
+        await movie.save();
+        return res.sendStatus(200);
+    } catch (error) {
+        return next(error);
+    }
+});
+
+app.delete("/api/schedule/:id", (req, res) => {
+    //TODO
+});
 
 app.listen(8080, () => console.log('Server started on port 8080'));

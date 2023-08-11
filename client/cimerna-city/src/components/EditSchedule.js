@@ -3,16 +3,11 @@ function EditSchedule({ index, schedule, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const data = new FormData(e.target)
-    const newScheduleData = {
-      _id: schedule["_id"],
-      fullDate: new Date (`${data.get("movie-date")}, ${data.get("movie-start")}`),
-      date: data.get("movie-date"),
-      start: data.get("movie-start"),
-    }
-    schedule.date = newScheduleData.date
-    schedule.start = newScheduleData.start
-    schedule.fullDate = newScheduleData.fullDate
-    onSave(schedule["_id"])
+    const newSchedule = {...schedule};
+    newSchedule.date = new Date (`${data.get("movie-date")}, ${data.get("movie-start")}`);
+    newSchedule.start = data.get("movie-date");
+    newSchedule.fullDate = data.get("movie-start");
+    onSave(newSchedule["_id"], newSchedule)
   }
 
   return <form id={index} onSubmit={handleSubmit}>

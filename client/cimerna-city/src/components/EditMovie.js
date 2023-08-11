@@ -2,37 +2,41 @@ import MovieDetails from "./MovieDetails";
 import EditSchedule from "./EditSchedule";
 import { useState } from "react";
 
-function EditMovie ({ movie }) {
+function EditMovie ({ movie, onSceduleChanged }) {
   
   movie.Schedule.sort((a, b) => a.fullDate - b.fullDate)
-  const [newSchedule, setNewSchedule] = useState(movie.Schedule)
+  // const [newSchedule, setNewSchedule] = useState(movie.Schedule)
 
-  const updateDB = (id) => {
-    fetch(`/api/movies/${id}`, {
-      method: 'PUT',
+  const updateDB = (id, schedule) => {
+    fetch("/api/schedule/" + id, {
+      method: "PATCH",
       headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ newData: [...movie.Schedule] })
+      body: JSON.stringify(schedule)
     })
-    setNewSchedule(movie.Schedule)
-    console.log(movie.Schedule)
+    onSceduleChanged(movie._id, schedule)
+    // console.log(movie.Schedule)
   }
 
-  const saveNewSchedule = (id) => {
-    movie.Schedule.sort((a, b) => a.fullDate - b.fullDate)
-    updateDB(id)
+  const saveNewSchedule = (id, scheduleItem) => {
+    // movie.Schedule.sort((a, b) => a.fullDate - b.fullDate)
+    // TODO
+    const newSchedule = [...movie.Schedule];
+    onSceduleChanged(movie._id, schedule)
+    updateDB(id, schedule)
   }
 
-  const deleteSchedule = (id) => {
-    movie.Schedule = movie.Schedule.filter(schedule => schedule['_id'] !== id)
-    updateDB(id)
+  const deleteSchedule = async (id) => {
+    const schedule = movie.Schedule.filter(schedule => schedule['_id'] !== id)
+    await fetch("/api/schedule" + id, { method: "DELETE" });
+    onSceduleChanged(movie._id, schedule)
   }
 
   return  (<>
       <MovieDetails movie={movie}/>
-      {newSchedule.map((schedule, index) => 
+      {movie.Schedule.map((scheduleItem, index) => 
         <>
-          <EditSchedule key={schedule['_id'] + index} index={index} schedule={schedule} onSave={saveNewSchedule} />
-          <button key={schedule['_id']} onClick={() => deleteSchedule(schedule['_id'])}>Delete</button>
+          <EditSchedule key={scheduleItem['_id'] + index} index={index} schedule={scheduleItem} onSave={saveNewSchedule} />
+          <button key={scheduleItem['_id']} onClick={() => deleteSchedule(scheduleItem['_id'])}>Delete</button>
         </>
       )}
       </>)

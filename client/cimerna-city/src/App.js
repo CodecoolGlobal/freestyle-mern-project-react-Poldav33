@@ -132,7 +132,16 @@ function App() {
           )
           }
           {(page === "edit-schedule") && <div className='schedule-new-movie'>
-          <EditMovie movie={selectedMovie}/>
+          <EditMovie movie={selectedMovie} onSceduleChanged={(movieId, newSchedule) => {
+            const newMovies = movies.map(movie => {
+              const newMovie = {...movie};
+              if (movie._id === movieId) {
+                newMovie.Schedule = newSchedule;
+              }
+              return newMovie;
+            });
+            setMovies(newMovies);
+          }}/>
           </div>}
         </div>
       </div>

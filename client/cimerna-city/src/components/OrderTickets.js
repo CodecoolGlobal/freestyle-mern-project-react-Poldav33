@@ -20,16 +20,21 @@ function OrderTickets({ originalSchedules }) {
     newSchedule.map(schedule => {
       if (schedule["_id"] === id) {
         schedule.tickets = tickets - data.get("movie-tickets")
+        fetch("/api/schedule/" + id, {
+          method: "PATCH",
+          headers: { 'Content-type': 'application/json' },
+          body: JSON.stringify(schedule)
+        })
       }
       return schedule
     })
     setSchedules(newSchedule)
-    fetch(`/api/movies/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ newData: [...newSchedule] })
-    })
-    originalSchedules = newSchedule
+    // fetch(`/api/movies/${id}`, {
+    //   method: 'PUT',
+    //   headers: { 'Content-type': 'application/json' },
+    //   body: JSON.stringify({ newData: [...newSchedule] })
+    // })
+    // originalSchedules = newSchedule
   }
 
   return (<>
