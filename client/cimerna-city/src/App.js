@@ -114,36 +114,45 @@ function App() {
         <div className='header'></div>
         <div className='navbar'>
           <Button buttontext={"Home"} setState={setPage} newState={"homePage"}/>
-          <Button buttontext={"Scheduled movies"} setState={setPage} newState={"schedule"}/>
           <Button buttontext={"Schedule new movie"} setState={setPage} newState={"newMovie"}/>
           <Button buttontext={"Edit-schedule"} setState={setPage} newState={"edit-movies"}/>
         </div>
-        {(page === "edit-movies" || page === "homePage" || page === "edit-movies") && <Filter handleFilter={handleFilter}/>}
-        {page === "homePage" && movies.map(movie =>
-        <Movie movie={movie} key={movie['_id']} onClick={selectMovieToEdit} changePageTo={"detailMovie"}/>
-          )}
+        {(page === "edit-movies" || page === "homePage") && <Filter handleFilter={handleFilter}/>}
+        <div className='allmovies-container'>
+          {page === "homePage" && movies.map(movie =>
+          <Movie movie={movie} key={movie['_id']} onClick={selectMovieToEdit} changePageTo={"detailMovie"}/>
+            )}
+        </div>
+        
+        <div className='schedule-new-movie'>
+          {(page === "newMovie" || page === "findMovie")&& <ScheduleMovie handleSubmit={handleSubmit} setState={setNewMovie}/>}
+          {page === "findMovie" && 
+            <>
+              <Movie movie={newMovie}/>
+              <button onClick={() => {
+                saveSchedule();
+              }}
+              >Schedule Movie</button>
+            </>
+          }
+        </div>
         {page === "detailMovie" && 
         <>
           <MovieDetails movie={selectedMovie} date={filter}/>
-          <OrderTickets originalSchedules={selectedMovie.Schedule}/>
+          <div className='setter-container'>
+            <OrderTickets originalSchedules={selectedMovie.Schedule}/>
+          </div>
         </>}
-        {(page === "newMovie" || page === "findMovie")&& <ScheduleMovie handleSubmit={handleSubmit} setState={setNewMovie}/>}
-        {page === "findMovie" && 
-        <>
-          <Movie movie={newMovie}/>
-          <button onClick={() => {
-            
-            saveSchedule();
-          }}
-          >Schedule Movie</button>
-        </>
-        }
-        {(page === "edit-movies") && movies.map(movie => 
-        <Movie movie={movie} key={movie['_id']} onClick={selectMovieToEdit} changePageTo={"edit-schedule"} />
-        )
-        }
-        {(page === "edit-schedule") && 
-        <EditMovie movie={selectedMovie}/>}
+        
+
+        <div className='setter-container'>
+          {(page === "edit-movies") && movies.map(movie => 
+          <Movie movie={movie} key={movie['_id']} onClick={selectMovieToEdit} changePageTo={"edit-schedule"} />
+          )
+          }
+          {(page === "edit-schedule") && 
+          <EditMovie movie={selectedMovie}/>}
+        </div>
       </div>
     </div>
   );
