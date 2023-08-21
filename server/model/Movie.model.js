@@ -19,8 +19,14 @@ const movieSchema = new Schema({
     Ratings: Array,
     imdbRating: String,
     imdbVotes: String,
-    Schedule: Array
-})
+    Schedule: [{ 
+        _id: mongoose.Types.ObjectId,
+        fullDate: Date,
+        date: Date,
+        start: Date,
+        tickets: Number,
+    }]
+});
 
 const Movie = model('Movie', movieSchema);
 
