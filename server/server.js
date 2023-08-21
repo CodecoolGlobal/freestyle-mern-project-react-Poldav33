@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-let Movie = require('./model/Movie.js');
+let Movie = require('./model/Movie.model.js');
 const express = require('express');
 const app = express();
 app.use(express.json());
