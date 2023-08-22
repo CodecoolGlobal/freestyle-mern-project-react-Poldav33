@@ -1,6 +1,8 @@
 function ScheduleMovie({ handleSubmit }) {
     const today = new Date();
     const todayDate = `${today.getFullYear()}-0${(today.getMonth() + 1)}-${today.getDate()}`;
+    
+    
     return (
         <form className="schedule-new-movie" onSubmit={handleSubmit}>
             <div>

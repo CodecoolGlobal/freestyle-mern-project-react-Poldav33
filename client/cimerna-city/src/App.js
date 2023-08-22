@@ -106,7 +106,7 @@ function App() {
         </div>
         
         <div className='schedule-new-movie'>
-          {(page === "newMovie" || page === "findMovie")&& <ScheduleMovie handleSubmit={handleSubmit} setState={setNewMovie}/>}
+          {(page === "newMovie" || page === "findMovie") && <ScheduleMovie handleSubmit={handleSubmit} setState={setNewMovie}/>}
           {page === "findMovie" && 
             <>
               <Movie movie={newMovie}/>
@@ -114,6 +114,9 @@ function App() {
                 saveSchedule();
               }}
               >Schedule Movie</button>
+              <button>
+                Not this, use extend search
+              </button>
             </>
           }
         </div>
