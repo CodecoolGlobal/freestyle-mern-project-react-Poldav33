@@ -4,15 +4,20 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
+import Layout from "./Pages/Layout";
+import ErrorPage from './Pages/ErroPage';
+import HomePage from './Pages/HomePage';
+
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout/>,
-    errorElement: <ErrorPage/>,
+    element: <Layout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
-        element: <Movie/>,
+        element: <HomePage/>,
       },
     ]
   }
