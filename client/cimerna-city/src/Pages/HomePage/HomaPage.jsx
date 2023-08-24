@@ -2,6 +2,8 @@ import DateFilter from '../components/Datefilter';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import MovieCard from '../components/MovieCard';
+
 const HomePage = () => {
     const [filter, setFilter] = useState("");
 
@@ -13,14 +15,14 @@ const HomePage = () => {
         setFilter(filterDate);
     }
 
+    const selectMovie = () => {
+
+    }
+
     return (
         <>
             <DateFilter handleFilter={handleFilter}/>
-            <div className='allmovies-container'>
-                {page === "homePage" && movies.map(movie =>
-                <Movie movie={movie} key={movie['_id']} onClick={selectMovieToEdit} changePageTo={"detailMovie"}/>
-                )}
-        </div>
+            <MovieList movies={movies}/>
         </>
     );
 }
