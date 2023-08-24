@@ -6,7 +6,10 @@ import reportWebVitals from './reportWebVitals';
 
 import Layout from "./Pages/Layout";
 import ErrorPage from './Pages/ErroPage';
-import HomePage from './Pages/HomePage';
+// import HomePage from './Pages/HomePage';
+import RoomUpdate from './components/RoomUpdate';
+import RoomList from './components/RoomList';
+import RoomAdd from './components/RoomAdd';
 
 
 const router = createBrowserRouter([
@@ -16,9 +19,17 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
-        element: <HomePage/>,
+        path: "/rooms",
+        element: <RoomList />
       },
+      {
+        path: "/room/update/:id",
+        element: <RoomUpdate />
+      },
+      {
+        path: '/room/add',
+        element: <RoomAdd />
+      }
     ]
   }
 ]);
