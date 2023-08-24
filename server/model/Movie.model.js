@@ -25,6 +25,7 @@ const movieSchema = new Schema({
         date: Date,
         start: Date,
         tickets: Number,
+        roomID: mongoose.Types.ObjectId
     }]
 });
 
