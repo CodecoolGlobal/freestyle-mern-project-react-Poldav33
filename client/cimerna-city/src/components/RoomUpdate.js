@@ -14,13 +14,17 @@ const RoomUpdate = () => {
       .then(res => res.json())
       .then(res => {
         setRoom(res)
+        setName(res.name)
+        setSeats(res.seats)
       })
-  })
+  }, [])
 
-  const handleUpdate = (name, seats) => {
+  const handleUpdate = (e) => {
+    e.preventDefault()
     const newRoomData = {...room}
     newRoomData.name = name
     newRoomData.seats = seats
+    console.log(newRoomData)
     fetch('/api/rooms/' + id, {
       method: "PATCH",
       headers: {"Content-Type": "application/json"},

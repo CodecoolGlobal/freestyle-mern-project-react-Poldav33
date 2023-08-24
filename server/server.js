@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 let Movie = require('./model/Movie.model.js');
-let Room = require('./model/Movie.model.js')
+let Room = require('./model/Room.model.js');
 const express = require('express');
 const app = express();
 app.use(express.json());
@@ -88,11 +88,16 @@ app.get('/api/rooms', async (req, res, next) => {
     }
 })
 
-app.post('/api/rooms', async (req, res, next) => {
+app.post('/api/rooms', (req, res, next) => {
     try {
-        const newRoom = new Room({...req.body})
+        const name = req.body.name
+        const seats = req.body.seats
+        const schedule = req.body.schedule
+        const newRoom = new Room({name: name, seats: seats, schedule: schedule})
+        console.log(newRoom)
         newRoom.save()
-        res.status(200)
+        console.log("saved?")
+        res.status(200).json("ok")
     } catch (error) {
         next(error)
     }
@@ -109,7 +114,8 @@ app.get('/api/rooms/:id', async (req, res, next) => {
 
 app.patch('/api/rooms/:id', async (req, res, next) => {
     try {
-        const room = await Room.findByIdAndUpdate(req.params.id, )
+        const room = await Room.findOneAndUpdate({"_id": req.params.id}, req.body )
+        console.log(room)
         res.status(200).json(room)
     } catch (error) {
         next(error)

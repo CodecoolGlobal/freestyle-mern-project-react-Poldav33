@@ -2,16 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const RoomAdd = () => {
-
-  console.log("pina");
-
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
   const [seats, setSeats] = useState(0);
 
-  const handleSubmit = () => {
-    fetch('/api/rooms/', {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('it runs')
+    fetch('/api/rooms', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -21,10 +20,11 @@ const RoomAdd = () => {
       })
     })
       .then(res => {
-        navigate('/rooms')
+        console.log('asd')
+        // navigate('/rooms')
       })
   }
-  console.log("asd")
+
   return (<>
     <form onSubmit={handleSubmit}>
       <label htmlFor="name">Room name: </label>

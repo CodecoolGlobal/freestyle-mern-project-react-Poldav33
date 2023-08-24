@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import RoomTable from './RoomTable'
 
 const RoomList = () => {
-  const [rooms, setRooms] = useState(null)
+  const [rooms, setRooms] = useState([])
 
   useEffect(() => {
     fetch('/api/rooms')
