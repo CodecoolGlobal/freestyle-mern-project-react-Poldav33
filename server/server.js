@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-let Movie = require('./model/Movie.js');
+let Movie = require('./model/Movie.model.js');
+let Room = require('./model/Room.model.js');
 const express = require('express');
 const app = express();
 app.use(express.json());
@@ -78,5 +79,56 @@ app.put('/api/movies/:id', (req, res) => {
     .catch(error => console.error(error))
 })
 
+app.get('/api/rooms', async (req, res, next) => {
+    try {
+        const rooms = await Room.find({})
+        res.status(200).json(rooms)
+    } catch (error) {
+        next(error)
+    }
+})
+
+app.post('/api/rooms', (req, res, next) => {
+    try {
+        const name = req.body.name
+        const seats = req.body.seats
+        const schedule = req.body.schedule
+        const newRoom = new Room({name: name, seats: seats, schedule: schedule})
+        console.log(newRoom)
+        newRoom.save()
+        console.log("saved?")
+        res.status(200).json("ok")
+    } catch (error) {
+        next(error)
+    }
+})
+
+app.get('/api/rooms/:id', async (req, res, next) => {
+    try {
+        const room = await Room.findById(req.params.id)
+        res.status(200).json(room)
+    } catch (error) {
+        next(error)
+    }
+})
+
+app.patch('/api/rooms/:id', async (req, res, next) => {
+    try {
+        const room = await Room.findOneAndUpdate({"_id": req.params.id}, req.body )
+        console.log(room)
+        res.status(200).json(room)
+    } catch (error) {
+        next(error)
+    }
+})
+
+app.delete('/api/rooms/:id', async (req, res, next) => {
+    try {
+        const room = await Room.findByIdAndDelete(req.params.id)
+        res.status(200).json(room)
+    } catch (error) {
+        next(error)
+    }
+})
 
 app.listen(8080, () => console.log('Server started on port 8080'));

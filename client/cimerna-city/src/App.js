@@ -1,5 +1,8 @@
 import './App.css';
 import { useState, useEffect } from 'react'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import reportWebVitals from "./reportWebVitals";
+
 import Movie from './components/Movie';
 import Button from './components/Button';
 import MovieDetails from './components/MovieDetails';
@@ -8,6 +11,9 @@ import EditMovie from './components/EditMovie';
 import { v4 as uuidv4 } from 'uuid';
 import Filter from './components/Filter';
 import OrderTickets from './components/OrderTickets';
+import RoomUpdate from './components/RoomUpdate';
+import RoomList from './components/RoomList';
+import RoomAdd from './components/RoomAdd';
 
 
 function App() {
@@ -19,6 +25,7 @@ function App() {
   const [scheduleMovie, setScheduleMovie] = useState({});
   const today = new Date();
   const [filter, setFilter] = useState(`${today.getFullYear()}-0${(today.getMonth() + 1)}-${today.getDate()}`);
+  const [selectedRoom, setSelectedRoom] = useState({})
 
   const selectMovieToEdit = (movie, changePageTo) => {
     console.log(movie)
@@ -97,6 +104,8 @@ function App() {
           <Button buttontext={"Home"} setState={setPage} newState={"homePage"}/>
           <Button buttontext={"Schedule new movie"} setState={setPage} newState={"newMovie"}/>
           <Button buttontext={"Edit-schedule"} setState={setPage} newState={"edit-movies"}/>
+          <Button buttontext={"Rooms"} setState={setPage} newState={"rooms"}/>
+          <Button buttontext={"Add rooms"} setState={setPage} newState={"room-add"}/>
         </div>
         {(page === "edit-movies" || page === "homePage") && <Filter handleFilter={handleFilter}/>}
         <div className='allmovies-container'>
@@ -135,6 +144,20 @@ function App() {
           <EditMovie movie={selectedMovie}/>
           </div>}
         </div>
+        {(page === "rooms") && 
+        <RoomList 
+        setSelectedRoom={setSelectedRoom}
+        setPage={setPage}
+        />}
+        {(page === "room-add") && 
+        <RoomAdd 
+        setPage={setPage}
+        />}
+        {(page === "room-update") && 
+        <RoomUpdate 
+        selectedRoom={selectedRoom}
+        setPage={setPage}
+        />}
       </div>
     </div>
   );

@@ -5,8 +5,9 @@ function MovieDetails({ movie, date }) {
     const defaultYtURL = "https://www.youtube.com/embed/";
     useEffect(() => {
         const getTrailerId = async () => {
-            const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyASebKYOo6Mg2D_e9J03U4qVVs4YHFxKng&type=video&q=${movie.Title}trailer`)
+            const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyBesseOw_N9o07QJ8mh1iTXf3RpxZvq1Ks&type=video&q=${movie.Title}trailer`)
             const searchData = await fetchData.json();
+            console.log(searchData)
             setVideoURL(defaultYtURL + searchData.items[0].id.videoId.toString())
             console.log(videoURL)
         }
