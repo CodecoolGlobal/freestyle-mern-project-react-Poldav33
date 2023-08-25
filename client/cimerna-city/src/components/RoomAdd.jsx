@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-const RoomAdd = () => {
-  const navigate = useNavigate();
+const RoomAdd = ({ setPage }) => {
 
   const [name, setName] = useState('');
   const [seats, setSeats] = useState(0);
@@ -21,7 +19,7 @@ const RoomAdd = () => {
     })
       .then(res => {
         console.log('asd')
-        // navigate('/rooms')
+        setPage("rooms")
       })
   }
 
@@ -43,7 +41,7 @@ const RoomAdd = () => {
       />
       <button type="submit">Save</button>
     </form>
-    <button onClick={() => navigate('/rooms')}>Cancel</button>
+    <button onClick={() => setPage('rooms')}>Cancel</button>
   </>);
 }
 

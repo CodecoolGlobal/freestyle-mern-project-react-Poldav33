@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import RoomTable from './RoomTable'
 
-const RoomList = () => {
+const RoomList = ({ setPage, setSelectedRoom }) => {
   const [rooms, setRooms] = useState([])
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const RoomList = () => {
     })
   }
 
-  return <RoomTable rooms={rooms} onDelete={handleDelete}/>
+  return <RoomTable rooms={rooms} onDelete={handleDelete} setPage={setPage} setSelectedRoom={setSelectedRoom}/>
 }
 
 export default RoomList

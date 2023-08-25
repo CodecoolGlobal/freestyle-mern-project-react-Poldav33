@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 
-const RoomUpdate = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+const RoomUpdate = ({ setPage, selectedRoom }) => {
+  const id = selectedRoom._id
 
   const [room, setRoom] = useState({});
   const [name, setName] = useState('');
@@ -17,7 +15,7 @@ const RoomUpdate = () => {
         setName(res.name)
         setSeats(res.seats)
       })
-  }, [])
+  }, [id])
 
   const handleUpdate = (e) => {
     e.preventDefault()
@@ -30,17 +28,20 @@ const RoomUpdate = () => {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ ...newRoomData })
     })
+    .then(res => {
+      setPage("rooms")
+    })
   }
 
   const handleDelete = () => {
     fetch('/api/rooms/' + id, { method: 'DELETE' })
     .then(res => {
-      navigate("/rooms") 
+      setPage("rooms") 
     })
   }
 
   return <>
-    <form onSubmit={handleUpdate}>
+    <form >
       <label htmlFor="name">RoomName: </label>
       <input
         name="name"
@@ -53,10 +54,10 @@ const RoomUpdate = () => {
         value={seats}
         onChange={(e) => setSeats(e.target.value)}
       />
-      <button type="submit">Update</button>
+      <button onClick={handleUpdate}>Update</button>
     </form>
     <button onClick={handleDelete}>Delete</button>
-    <button>Cancel</button>
+    <button onClick={setPage("rooms")}>Cancel</button>
   </>
 }
 

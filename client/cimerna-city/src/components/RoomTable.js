@@ -1,7 +1,13 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
-const RoomTable = ({ rooms, onDelete }) => (
-  <div>
+const RoomTable = ({ rooms, onDelete, setPage, setSelectedRoom }) => {
+  const handle = (e, room) => {
+    e.preventDefault()
+    setSelectedRoom(room); 
+    setPage("room-update");
+  }
+
+  return <div>
     <table>
       <thead>
         <tr>
@@ -16,9 +22,7 @@ const RoomTable = ({ rooms, onDelete }) => (
             <td>{room.name}</td>
             <td>{room.seats}</td>
             <td>
-              <Link to={`/room/update/${room._id}`}>
-                <button type="button">Update</button>
-              </Link>
+                <button onClick={(e) => {handle(e, room)}} type="button">Update</button>
               <button type="button" onClick={() => onDelete(room._id)}>
                 Delete
               </button>
@@ -28,6 +32,6 @@ const RoomTable = ({ rooms, onDelete }) => (
       </tbody>
     </table>
   </div>
-)
+}
 
 export default RoomTable
